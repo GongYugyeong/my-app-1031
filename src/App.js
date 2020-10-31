@@ -4,6 +4,8 @@ import {Header} from "./components/Header";
 import Player from "./components/Player";
 import AddPlayerForm from "./components/AddPlayerForm";
 
+let maxId = 4;    // 임시, 실제로는 DB에서 key값 받아서 넣어줌
+
 class App extends React.Component {
   state = {
     players: [
@@ -39,8 +41,14 @@ class App extends React.Component {
     })
   }
 
-  handleAddPlayer = () => {
-    console.log('handleAddPlayer');
+  handleAddPlayer = (name) => {
+    console.log('handleAddPlayer / '+ name);
+    this.setState(prevState => {
+      const players = [ ...prevState.players]
+      //추가하는 로직
+      players.push({name: name, score: 0, id: ++maxId});
+      return { players };
+    });
   }
 
   render() {
