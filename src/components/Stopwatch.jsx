@@ -1,53 +1,46 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
-class Stopwatch extends React.Component {
-  tickRef;
-  state = {
-    isRunning: false,
-    timer: 0
-  }
+function Stopwatch(props) {
+  let tickRef;
+  const [isRunning, setIsRunning] = useState(false);
+  const [timer, setTimer] = useState(0);
 
-  tick = () => {
-    if (this.state.isRunning){
-      this.setState({timer: this.state.timer + 1})
+  const tick = () => {
+    if (isRunning){
+      setTimer(timer + 1);
     }
   }
 
-  // Dom(return 안에 있는 태그들)이 랜더링된 직후에 호출
-  // REST API 호출, 3rd 라이브러리 로딩
-  componentDidMount() {
-    this.tickRef = setInterval((this.tick), 1000);
-  }
+  useEffect(() => {
+    tickRef = setInterval((tick), 1000);
+    return () => {
+      clearInterval(tickRef);
+    }
+  })
 
-  // Dom이 파괴되기 직전에 호출되는 라이프 사이클 메서드
-  componentWillUnmount() {
-    clearInterval(this.tickRef);
-  }
 
-  getButton = () => {
-    if(this.state.isRunning){
+  const getButton = () => {
+    if(isRunning){
       return (
-        <button onClick={() => this.setState({isRunning: !this.state.isRunning})}>Stop</button>
+        <button onClick={() => setIsRunning(!isRunning)}>Stop</button>
       );
     }else{
       return (
-        <button onClick={() => this.setState({isRunning: !this.state.isRunning})}>Start</button>
+        <button onClick={() => setIsRunning(!isRunning)}>Start</button>
       );
     }
   }
 
-  render() {
-    return (
-      <div className="stopwatch">
-        <h2>Stopwatch</h2>
-        <span className="stopwatch-time">{this.state.timer}</span>
-        {
-          this.getButton()
-        }
-        <button>Reset</button>
-      </div>
-    );
-  }
+  return (
+    <div className="stopwatch">
+      <h2>Stopwatch</h2>
+      <span className="stopwatch-time">{timer}</span>
+      {
+        getButton()
+      }
+      <button>Reset</button>
+    </div>
+  );
 }
 
 export default Stopwatch;
