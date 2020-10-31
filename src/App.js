@@ -25,6 +25,17 @@ class App extends React.Component {
 
   handleChangeScore = (delta, id) => {
     console.log('handleChangeScore / ' + delta + ' / id / '+ id);
+    this.setState((prevState) => {
+      const players = [ ...prevState.players];  // 원본 배열을 새로운 배열로 만듬
+
+      /* 새로운 배열을 돌림 */
+      players.forEach(player => {
+        if(player.id === id){
+          player.score += delta;
+        }
+      })
+      return { players }; // short hand property: key와 value가 같으면 한쪽 생략 ex) players: players
+    })
   }
 
   render() {
