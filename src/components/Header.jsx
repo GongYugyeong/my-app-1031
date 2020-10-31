@@ -1,4 +1,5 @@
 import React from 'react';
+import Statistics from "./Statistics";
 
 export const Header = (props) => {
   console.log(props);
@@ -6,8 +7,8 @@ export const Header = (props) => {
   const {title, totalPlayers} = props;
   return (
     <header className="header">
+      <Statistics></Statistics>
       <h1 className="h1">{title}</h1>
-      <span className='stats'>Players: {totalPlayers}</span>
     </header>
   );
 }
