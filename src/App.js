@@ -4,6 +4,7 @@ import {Header} from "./components/Header";
 import Player from "./components/Player";
 import AddPlayerForm from "./components/AddPlayerForm";
 import CustomPlayer from "./components/CustomPlayer";
+import _ from 'lodash';
 
 let maxId = 4;    // 임시, 실제로는 DB에서 key값 받아서 넣어줌
 
@@ -52,6 +53,12 @@ class App extends React.Component {
     });
   }
 
+  // 가장 높은 score를 리턴
+  getHighScore() {
+    const maxObj = _.maxBy(this.state.players, 'score');
+    return maxObj.score ? maxObj.score : null;
+  }
+
   render() {
     return (
       <div className='scoreboard'>
@@ -62,6 +69,7 @@ class App extends React.Component {
             <CustomPlayer name={player.name} key={player.id}
                     id={player.id}
                     score={player.score}
+                    isHighScore={player.score === this.getHighScore()}
                     changeScore={this.handleChangeScore}
                     removePlayer={this.handleRemovePlayer} />
           ))
