@@ -7,7 +7,7 @@ class Counter extends React.Component {
     // 1) this.incrementScore = this.incrementScore.bind(this);
   }
 
-  changeScore = (delta) => {
+  /*changeScore = (delta) => {
     // 2) arrow 펑션안의 this는 lexical this
     console.log(this);
     // 1. state를 변경하는 방법
@@ -18,17 +18,17 @@ class Counter extends React.Component {
     this.setState(prevState => ({
       score: prevState.score + delta
     }));
-  }
+  }*/
 
   render() {
     return (
       <div className='counter'>
         <button className='counter-action decrement'
-                onClick={() => this.changeScore(-1)}> -
+                onClick={() => this.props.changeScore(-1, this.props.id)}> -
         </button>
         <span className='counter-score'>{this.props.score}</span>
         <button className='counter-action increment'
-                onClick={() => this.changeScore(1)}> +
+                onClick={() => this.props.changeScore(1, this.props.id)}> +
         </button>
       </div>
     );
