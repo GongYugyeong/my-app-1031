@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 
 function AddPlayerForm(props) {
   const [value, setValue]= useState('');
 
-  const formRef = React.createRef();
-  const textRef = React.createRef();
+  const formRef = useRef(null);
+  const textRef = useRef(null);
 
   const handleValueChange = (e) => {
     setValue(e.target.value);
@@ -15,7 +15,7 @@ function AddPlayerForm(props) {
 
     // text 노드에 접근하는 방법
     const form = formRef.current;
-    const player = textRef.current;  // documnet.getElementById(id)와 같다.
+    const player = textRef.current;  // document.getElementById(id)와 같다.
     console.log(form.checkValidity());    // 폼내의 모든 입력 validation을 체크
     console.log(player.validity.valid);  // 입력의 9가지 validation을 체크
 
